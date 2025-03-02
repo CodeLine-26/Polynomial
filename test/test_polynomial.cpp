@@ -53,7 +53,7 @@ TEST_F(MonomTesting, can_addict_monoms)
     Monom op(358, 3.4);
     Monom res = *(this->m) + op;
     EXPECT_EQ(res.get_deg(), 358);
-    EXPECT_EQ(res.get_k(), 8.9);
+    EXPECT_EQ(res.get_k(), 7.6);
 }
 
 TEST_F(MonomTesting, cant_addict_monoms_with_diff_pows)
@@ -64,7 +64,7 @@ TEST_F(MonomTesting, cant_addict_monoms_with_diff_pows)
 
 TEST_F(MonomTesting, addiction_can_create_zero_monom)
 {
-    Monom op(358, -5.5);
+    Monom op(358, -4.2);
     Monom res = *(this->m) + op;
     EXPECT_EQ(res.get_deg(), 0);
     EXPECT_EQ(res.get_k(), 0);
@@ -72,7 +72,7 @@ TEST_F(MonomTesting, addiction_can_create_zero_monom)
 
 TEST_F(MonomTesting, can_diff_monoms)
 {
-    Monom op(358, 2.5);
+    Monom op(358, 1.2);
     Monom res = *(this->m) - op;
     EXPECT_EQ(res.get_deg(), 358);
     EXPECT_EQ(res.get_k(), 3);
@@ -86,7 +86,7 @@ TEST_F(MonomTesting, cant_diff_monoms_with_diff_pows)
 
 TEST_F(MonomTesting, dif_can_create_zero_monom)
 {
-    Monom op(358, 5.5);
+    Monom op(358, 4.2);
     Monom res = *(this->m) - op;
     EXPECT_EQ(res.get_deg(), 0);
     EXPECT_EQ(res.get_k(), 0);
@@ -96,7 +96,7 @@ TEST_F(MonomTesting, can_mult_with_scalar)
 {
     Monom res = *(this->m) * 5;
     EXPECT_EQ(res.get_deg(), 358);
-    EXPECT_EQ(res.get_k(), 27.5);
+    EXPECT_EQ(res.get_k(), 21);
 }
 
 TEST_F(MonomTesting, can_mult_with_zero_scalar)
@@ -111,7 +111,7 @@ TEST_F(MonomTesting, can_mult_monoms)
     Monom op(441, 2);
     Monom res = *(this->m) * op;
     EXPECT_EQ(res.get_deg(), 799);
-    EXPECT_EQ(res.get_k(), 11);
+    EXPECT_EQ(res.get_k(), 8.4);
 }
 
 TEST_F(MonomTesting, mult_throw_then_degree_is_out_of_range)
@@ -136,11 +136,11 @@ public:
     void SetUp()
     {
         p1 = new Polynom;
-        (*p1).push_back(Monom(100, -4));
-        (*p1).push_back(Monom(140, 1.5));
+        (*p1).push_back(Monom(102, -3));
+        (*p1).push_back(Monom(137, 1.5));
         p2 = new Polynom;
-        (*p2).push_back(Monom(100, 2));
-        (*p2).push_back(Monom(723, -11));
+        (*p2).push_back(Monom(102, 2));
+        (*p2).push_back(Monom(721, -10));
         (*p2).push_back(Monom(300, 0.5));
 
     }
