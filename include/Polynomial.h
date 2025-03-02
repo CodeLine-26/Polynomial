@@ -301,7 +301,7 @@ public:
 			first = p;
 			p->next = p;
 		}
-		catch (const bad_alloc& m) { cerr << m.what() << '\n'; }
+		catch (const bad_alloc& mem) { cerr << mem.what() << '\n'; }
 	}
 
 	~Polynom()
