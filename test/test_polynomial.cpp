@@ -156,7 +156,7 @@ TEST(PolynomTest, can_create_polynom)
     ASSERT_NO_THROW(Polynom p);
 }
 
-TEST_F(PolynomTestF, can_addict_polynoms) {
+TEST_F(PolynomTesting, can_addict_polynoms) {
     Polynom res = *(this->p1) + *(this->p2);
 
     List<Monom>::iterator it = res.begin()->next;
@@ -177,7 +177,7 @@ TEST_F(PolynomTestF, can_addict_polynoms) {
     EXPECT_EQ((*it).get_k(), 1.5);
 }
 
-TEST_F(PolynomTestF, can_mult_with_scalar)
+TEST_F(PolynomTesting, can_mult_with_scalar)
 {
     Polynom res = *(this->p1) * 2;
 
@@ -191,7 +191,7 @@ TEST_F(PolynomTestF, can_mult_with_scalar)
 }
 
 
-TEST_F(PolynomTestF, can_mult_polynoms)
+TEST_F(PolynomTesting, can_mult_polynoms)
 {
     Polynom res = *(this->p1) * *(this->p2);
 
