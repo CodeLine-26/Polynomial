@@ -263,14 +263,14 @@ public:
 			return res;
 		}
 		else throw ("Error");
+	}
 
-		Monom operator*(const double scal)
-		{
-			Monom res(this->degree, this->k * scal);
-			if (res.get_k() == 0)
-				return Monom(0, 0);
-			return res;
-		}
+	Monom operator*(const double scal)
+	{
+		Monom res(this->degree, this->k * scal);
+		if (res.get_k() == 0)
+			return Monom(0, 0);
+		return res;
 	}
 
 	Monom operator*(const Monom & m)
