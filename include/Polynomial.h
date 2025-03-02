@@ -246,7 +246,7 @@ public:
 		if (this->degree == m.get_deg())
 		{
 			Monom res(this->degree, this->k + m.get_k());
-			if (res.get_k() == 0) 
+			if (res.get_k() == 0)
 				return Monom(0, 0);
 			return res;
 		}
@@ -258,31 +258,32 @@ public:
 		if (this->degree == m.get_deg())
 		{
 			Monom res(this->degree, this->k - m.get_k());
-			if (res.get_k() == 0) 
+			if (res.get_k() == 0)
 				return Monom(0, 0);
 			return res;
 		}
 		else throw ("Error");
 
-	Monom operator*(const double scal)
-	{
-		Monom res(this->degree, this->k * scal);
-		if (res.get_k() == 0) 
-			return Monom(0, 0);
-		return res;
-	}
-
-	Monom operator*(const Monom& m)
-	{
-		if (this->x_deg() + m.x_deg() <= MAX_DEG && this->y_deg() + m.y_deg() <= MAX_DEG
-			&& this->z_deg() + m.z_deg() <= MAX_DEG)
+		Monom operator*(const double scal)
 		{
-			Monom res(this->degree + m.get_deg(), this->k * m.get_k());
-			if (res.get_k() == 0) 
+			Monom res(this->degree, this->k * scal);
+			if (res.get_k() == 0)
 				return Monom(0, 0);
 			return res;
 		}
-		else throw ("Error");
+
+		Monom operator*(const Monom & m)
+		{
+			if (this->x_deg() + m.x_deg() <= MAX_DEG && this->y_deg() + m.y_deg() <= MAX_DEG
+				&& this->z_deg() + m.z_deg() <= MAX_DEG)
+			{
+				Monom res(this->degree + m.get_deg(), this->k * m.get_k());
+				if (res.get_k() == 0)
+					return Monom(0, 0);
+				return res;
+			}
+			else throw ("Error");
+		}
 	}
 };
 
