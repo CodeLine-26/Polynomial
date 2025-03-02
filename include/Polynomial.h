@@ -297,7 +297,8 @@ public:
 	{
 		try
 		{
-			Node<Monom>* p = new Node<Monom>;
+			Monom m;
+			Node<Monom>* p = new Node<Monom>(m);
 			first = p;
 			p->next = p;
 		}
