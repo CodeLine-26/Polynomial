@@ -15,7 +15,7 @@ public:
 
 TEST(MonomTest, can_create_monom)
 {
-    ASSERT_NO_THROW(Monom m(3, 1.2));
+    ASSERT_NO_THROW(Monom m(5, 3.8));
 }
 
 TEST(MonomTest, can_create_zero_monom)
@@ -25,12 +25,12 @@ TEST(MonomTest, can_create_zero_monom)
 
 TEST(MonomTest, cant_create_monom_with_too_large_degree)
 {
-    ASSERT_ANY_THROW(Monom(1000, 5));
+    ASSERT_ANY_THROW(Monom(1100, 5));
 }
 
 TEST_F(MonomTesting, can_get_x_degree)
 {
-    EXPECT_EQ(this->m->x_deg(), 4);
+    EXPECT_EQ(this->m->x_deg(), 3);
 }
 
 TEST_F(MonomTesting, can_get_y_degree)
@@ -50,10 +50,10 @@ TEST_F(MonomTesting, can_check_degree_is_correct)
 
 TEST_F(MonomTesting, can_addict_monoms)
 {
-    Monom op(358, 3.5);
+    Monom op(358, 3.4);
     Monom res = *(this->m) + op;
     EXPECT_EQ(res.get_deg(), 358);
-    EXPECT_EQ(res.get_k(), 5.9);
+    EXPECT_EQ(res.get_k(), 8.9);
 }
 
 TEST_F(MonomTesting, cant_addict_monoms_with_diff_pows)
@@ -161,11 +161,11 @@ TEST_F(PolynomTesting, can_addict_polynoms) {
 
     List<Monom>::iterator it = res.begin()->next;
 
-    EXPECT_EQ((*it).get_deg(), 100);
+    EXPECT_EQ((*it).get_deg(), 102);
     EXPECT_EQ((*it).get_k(), -1);
 
     ++it;
-    EXPECT_EQ((*it).get_deg(), 723);
+    EXPECT_EQ((*it).get_deg(), 721);
     EXPECT_EQ((*it).get_k(), -10);
 
     ++it;
@@ -173,7 +173,7 @@ TEST_F(PolynomTesting, can_addict_polynoms) {
     EXPECT_EQ((*it).get_k(), 0.5);
 
     ++it;
-    EXPECT_EQ((*it).get_deg(), 140);
+    EXPECT_EQ((*it).get_deg(), 137);
     EXPECT_EQ((*it).get_k(), 1.5);
 }
 
@@ -182,11 +182,11 @@ TEST_F(PolynomTesting, can_mult_with_scalar)
     Polynom res = *(this->p1) * 2;
 
     List<Monom>::iterator it = res.begin()->next;
-    EXPECT_EQ((*it).get_deg(), 100);
+    EXPECT_EQ((*it).get_deg(), 102);
     EXPECT_EQ((*it).get_k(), -6);
 
     ++it;
-    EXPECT_EQ((*it).get_deg(), 140);
+    EXPECT_EQ((*it).get_deg(), 137);
     EXPECT_EQ((*it).get_k(), 3);
 }
 
