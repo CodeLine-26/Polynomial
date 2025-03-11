@@ -10,7 +10,7 @@ class Node
 public:
 	T data;
 	Node* next;
-	Node(T _data = NULL, Node* _next = nullptr) : data(_data), next(_next) { }
+	Node(T _data = T(), Node* _next = nullptr) : data(_data), next(_next) { }
 };
 
 template<typename T>
@@ -41,7 +41,7 @@ public:
 			push_back(*it);
 	}
 
-	~List()
+	void clear()
 	{
 		while (first != nullptr)
 		{
@@ -52,17 +52,16 @@ public:
 		size = 0;
 	}
 
+	~List()
+	{
+		this->clear();
+	}
+
 	List<T>& operator=(const List<T>& _list)
 	{
 		if (this != &_list)
 		{
-			while (first != nullptr)
-			{
-				Node<T>* temp = first;
-				first = first->next;
-				delete temp;
-			}
-			size = 0;
+			this->clear();
 			for (iterator it = _list.begin(); it != _list.end(); ++it)
 				push_back(*it);
 		}
@@ -71,10 +70,6 @@ public:
 
 	Node<T>* get_first() const noexcept { return first; }
 	size_t get_size() const noexcept { return size; }
-	Node<T>* begin() noexcept { return first; }
-	Node<T>* end() noexcept { return nullptr; }
-	const Node<T>* begin() const noexcept { return first; }
-	const Node<T>* end() const noexcept { return nullptr; }
 
 	void push_front(T elem)
 	{
@@ -108,6 +103,7 @@ public:
 				Node<T>* new_node = new Node<T>(elem, node->next);
 				node->next = new_node;
 				size++;
+				if (new_node->next == first) new_node->next = nullptr;
 			}
 			catch (const bad_alloc& m) { cerr << m.what() << '\n'; }
 		}
@@ -144,24 +140,12 @@ public:
 			current = next_node;
 			next_node = next_node->next;
 		}
-		if (next_node == first)
-		{
-			return current;
-		}
 		return current;
 	}
 
 	void push_back(T elem)
 	{
-		try
-		{
-			Node<T>* new_node = new Node<T>(elem, nullptr);
-			Node<T>* last_node = this->get_last();
-			if (last_node != nullptr) last_node->next = new_node;
-			else first = new_node;
-			size++;
-		}
-		catch (const bad_alloc& m) { cerr << m.what() << '\n'; }
+		this->insert(elem, this->get_last());
 	}
 
 	class iterator
@@ -174,6 +158,7 @@ public:
 		iterator(const Node<T>* node) : current(const_cast<Node<T>*>(node)) {}
 		iterator(const iterator& it) { current = it.current; }
 		Node<T>* get_current() const noexcept { return current; }
+		iterator(std::nullptr_t ptr) { current = nullptr; }
 
 		iterator& operator++()
 		{
@@ -212,6 +197,11 @@ public:
 		{
 			return !(*this == it);
 		}
+
+		iterator begin() noexcept { return iterator(first); }
+		iterator end() noexcept { return iterator(nullptr); }
+		const iterator begin() const noexcept { return iterator(first); }
+		const iterator end() const noexcept { return iterator(nullptr); }
 	};
 };
 
@@ -323,8 +313,8 @@ public:
 	Polynom operator+ (const Polynom& p)
 	{
 		Polynom res;
-		iterator it1 = this->begin()->next;
-		iterator it2 = p.begin()->next;
+		iterator it1 = this->begin().get_current()->next;
+		iterator it2 = p.begin().get_current()->next;
 
 		while (it1 != this->end() && it2 != p.end())
 		{
@@ -367,7 +357,7 @@ public:
 	Polynom operator* (const double scal)
 	{
 		Polynom res;
-		for (iterator it = this->begin()->next; it != this->end(); ++it)
+		for (iterator it = this->begin().get_current()->next; it != this->end(); ++it)
 			res.push_back((*it) * scal);
 		return res;
 	}
@@ -375,14 +365,21 @@ public:
 	Polynom operator* (const Polynom& p)
 	{
 		Polynom res;
-		iterator it1 = this->begin()->next;
-		for (; it1 != this->end(); ++it1)
+		res.begin().get_current()->next = nullptr;
+		iterator it1 = this->begin().get_current()->next;
+		for (; it1 != this->end(); ++it1) 
 		{
-			iterator it2 = p.begin()->next;
-			for (; it2 != p.end(); ++it2) {
-				res.push_back(*(it1) * *(it2));
-			}
+			res = res + p * (*it1);
 		}
 		return res;
 	}
+
+	Polynom operator* (const Monom& m) const
+	{
+		Polynom res;
+		for (iterator it = this->begin().get_current()->next; it != this->end(); ++it) res.push_back((*it) * m);
+		return res;
+	}
+
+
 };

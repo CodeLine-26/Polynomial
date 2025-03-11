@@ -159,7 +159,7 @@ TEST(PolynomTest, can_create_polynom)
 TEST_F(PolynomTesting, can_addict_polynoms) {
     Polynom res = *(this->p1) + *(this->p2);
 
-    List<Monom>::iterator it = res.begin()->next;
+    List<Monom>::iterator it = res.begin().get_current()->next;
 
     EXPECT_EQ((*it).get_deg(), 102);
     EXPECT_EQ((*it).get_k(), -1);
@@ -181,7 +181,7 @@ TEST_F(PolynomTesting, can_mult_with_scalar)
 {
     Polynom res = *(this->p1) * 2;
 
-    List<Monom>::iterator it = res.begin()->next;
+    List<Monom>::iterator it = res.begin().get_current()->next;
     EXPECT_EQ((*it).get_deg(), 102);
     EXPECT_EQ((*it).get_k(), -6);
 
@@ -195,19 +195,7 @@ TEST_F(PolynomTesting, can_mult_polynoms)
 {
     Polynom res = *(this->p1) * *(this->p2);
 
-    List<Monom>::iterator it = res.begin()->next;
-    EXPECT_EQ((*it).get_deg(), 204);
-    EXPECT_EQ((*it).get_k(), -6);
-
-    ++it;
-    EXPECT_EQ((*it).get_deg(), 823);
-    EXPECT_EQ((*it).get_k(), 30);
-
-    ++it;
-    EXPECT_EQ((*it).get_deg(), 402);
-    EXPECT_EQ((*it).get_k(), -1.5);
-
-    ++it;
+    List<Monom>::iterator it = res.begin().get_current()->next;
     EXPECT_EQ((*it).get_deg(), 239);
     EXPECT_EQ((*it).get_k(), 3);
 
@@ -218,4 +206,16 @@ TEST_F(PolynomTesting, can_mult_polynoms)
     ++it;
     EXPECT_EQ((*it).get_deg(), 437);
     EXPECT_EQ((*it).get_k(), 0.75);
+
+    ++it;
+    EXPECT_EQ((*it).get_deg(), 204);
+    EXPECT_EQ((*it).get_k(), -6);
+
+    ++it;
+    EXPECT_EQ((*it).get_deg(), 823);
+    EXPECT_EQ((*it).get_k(), 30);
+
+    ++it;
+    EXPECT_EQ((*it).get_deg(), 402);
+    EXPECT_EQ((*it).get_k(), -1.5);
 }
