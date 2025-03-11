@@ -197,12 +197,12 @@ public:
 		{
 			return !(*this == it);
 		}
-
-		iterator begin() noexcept { return iterator(first); }
-		iterator end() noexcept { return iterator(nullptr); }
-		const iterator begin() const noexcept { return iterator(first); }
-		const iterator end() const noexcept { return iterator(nullptr); }
 	};
+
+	iterator begin() noexcept { return iterator(first); }
+	iterator end() noexcept { return iterator(nullptr); }
+	const iterator begin() const noexcept { return iterator(first); }
+	const iterator end() const noexcept { return iterator(nullptr); }
 };
 
 class Monom
